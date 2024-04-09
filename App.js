@@ -1,20 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import { Provider } from 'react-redux';
+import { store } from './store/Authstore';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import MainComponent from './screens/MainComponent';
+import SetUsernameScreen from './screens/SetUsernameScreen';
+import SetOtpScreen from './screens/SetOtpScreen';
+import AdminMainComponent from './screens/AdminMainComponent';
+import SetOrganizationNameScreen from './screens/SetOrganizationNameScreen';
+import HomeScreen from './screens/HomeScreen';
+import CategoryList from './screens/CategoryList';
 
-export default function App() {
+const Stack = createStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="SetOrganization">
+          <Stack.Screen name="SetOrganization" component={SetOrganizationNameScreen} />
+          <Stack.Screen name="SetUsername" component={SetUsernameScreen} />
+          <Stack.Screen name="SetOtp" component={SetOtpScreen} />
+          <Stack.Screen name="Main" component={MainComponent} />
+          <Stack.Screen name="AdminMain" component={AdminMainComponent} />
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="CategoryList" component={CategoryList} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
+
+
